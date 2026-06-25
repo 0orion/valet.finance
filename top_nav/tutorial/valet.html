@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valet Wallet — Full Tutorial</title>
+  <meta name="description" content="A complete, step-by-step guide to installing and using the Valet bitcoin & Lightning wallet, including Hosted / Fiat channels.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tutorial.css?v=2">
+</head>
+<body>
+  <nav class="nav-container">
+    <div class="nav-content">
+      <a href="../../index.html" class="logo">
+        <img src="../../images/Valet_logo.svg" alt="Valet Logo">
+        <span class="logo-text">VALET</span>
+        <span class="logo-separator">|</span>
+        <span class="wallet-text">WALLET</span>
+      </a>
+      <div class="nav-links">
+        <a href="../../index.html">Valet</a>
+        <a href="../features/features.html">Features</a>
+        <div class="dropdown">
+          <a href="#" onclick="return false;">Tutorial</a>
+          <div class="dropdown-content">
+            <a href="valet.html">Valet Wallet Tutorial</a>
+            <a href="hosted-channel.html">Hosted/Fiat Channels Stack Setup Tutorial</a>
+          </div>
+        </div>
+        <a href="../bnb/contact.html">Contact</a>
+      </div>
+      <div class="hamburger">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu">
+    <div class="mobile-menu-header">
+      <h3>Menu</h3>
+      <span class="close-menu">&times;</span>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="../../index.html">Valet</a>
+      <a href="../features/features.html">Features</a>
+      <div class="mobile-dropdown">
+        <a href="#" class="mobile-dropdown-toggle">Tutorial ▼</a>
+        <div class="mobile-dropdown-content">
+          <a href="valet.html">Valet Wallet Tutorial</a>
+          <a href="hosted-channel.html">Hosted/Fiat Channels Stack Setup Tutorial</a>
+        </div>
+      </div>
+      <a href="../bnb/contact.html">Contact</a>
+    </div>
+  </div>
+
+  <div class="overlay"></div>
+
+  <div class="t-wrap">
+    <aside class="t-toc" id="t-toc">
+      <h4>On this page</h4>
+    </aside>
+    <div class="t-main">
+      <img class="t-cover" src="valet/assets/cover.webp" alt="Valet Wallet">
+      <main class="t-content" id="t-content" data-md="valet/en.md" data-assets="valet/" data-toc-case="title">
+        <h1>Valet Wallet — Full Tutorial</h1>
+        <p>Loading tutorial…</p>
+      </main>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Wallet</h4>
+        <ul>
+          <li><a href="https://f-droid.org/en/packages/finance.valet/" target="_blank">Mobile Apps</a></li>
+          <li><a href="https://github.com/standardsats/valet/releases/tag/4.4.4" target="_blank">APK File</a></li>
+          <li><a href="#">Telegram Bot</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Features</h4>
+        <ul>
+          <li><a href="../features/features.html#basic">Basic</a></li>
+          <li><a href="../features/features.html#advanced">Advanced</a></li>
+          <li><a href="../features/features.html#security">Security</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Tutorial</h4>
+        <ul>
+          <li><a href="valet.html">Valet Wallet Tutorial</a></li>
+          <li><a href="hosted-channel.html">Hosted/Fiat Channels Stack Setup Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="../bnb/contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Connect with Us</h4>
+        <div class="social-links">
+          <a href="https://x.com/standard_sats" class="social-link" target="_blank">X(Twitter)</a>
+          <a href="https://www.youtube.com/@standardsats" class="social-link" target="_blank">YouTube</a>
+          <a href="https://stacker.news/standard_sats" class="social-link" target="_blank">StackerNews</a>
+          <a href="https://github.com/standardsats/valet" class="social-link" target="_blank">GitHub</a>
+        </div>
+        <div class="community-buttons">
+          <a href="https://t.me/StandardSatsCommunity" class="community-button" target="_blank">Join us on Telegram</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Valet.finance. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu (same behaviour as the rest of the site)
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const overlay = document.querySelector('.overlay');
+    const closeMenu = document.querySelector('.close-menu');
+    const closeMobile = () => {
+      mobileMenu.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+    closeMenu.addEventListener('click', closeMobile);
+    overlay.addEventListener('click', closeMobile);
+    document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggle.parentElement.classList.toggle('active');
+      });
+    });
+  </script>
+  <script src="js/marked.min.js"></script>
+  <script src="js/tutorial.js?v=2"></script>
+</body>
+</html>

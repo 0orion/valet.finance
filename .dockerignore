@@ -2,9 +2,12 @@
 .git
 .gitignore
 
-# Documentation
-README.md
-*.md
+# Documentation (root-only; tutorial en.md files are served at runtime, keep them)
+/README.md
+/CONTENT_MANAGEMENT.md
+
+# Paused (unpublished) pages — kept on disk, never served
+_paused/
 
 # Docker files
 Dockerfile*

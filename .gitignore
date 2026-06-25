@@ -57,3 +57,4 @@ Thumbs.db
 
 # Local development files
 .local/
+_paused/
