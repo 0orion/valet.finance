@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Grant Proposal, Valet</title>
+  <meta name="description" content="Support the development of Valet, an open, self-custodial Bitcoin & Lightning wallet. Read our open grant proposal and help fund the work.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!--
+    GRANT PAGE. Remaining to fill in (shown in red via the .ph class):
+    * Donate Bitcoin on-chain + Lightning addresses (Support section)
+    * Update traction metrics as they grow
+  -->
+  <style>
+    :root {
+      --primary-color: #6B46C1;
+      --secondary-color: #ffffff;
+      --text-color: #2D3748;
+      --text-light: #718096;
+      --background-light: #F7FAFC;
+      --background-dark: #2D3748;
+      --accent-color: #805AD5;
+      --border-color: #E2E8F0;
+      --success-color: #48BB78;
+      --nav-h: 80px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; line-height: 1.65; color: var(--text-color); background: #fff; }
+    a { color: var(--primary-color); text-decoration: none; }
+
+    /* ---------- Nav (same as the rest of the site) ---------- */
+    .nav-container { background-color: var(--background-light); box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; }
+    .nav-content { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .logo { font-size: 1.5rem; font-weight: bold; color: var(--text-color); display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+    .logo img { height: 3rem; width: auto; }
+    .logo-text { color: var(--text-color); font-size: 1.5rem; }
+    .logo-separator { color: #718096; margin: 0 0.5rem; }
+    .wallet-text { color: #718096; font-weight: 500; font-size: 1.2rem; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--text-color); text-decoration: none; font-size: 1rem; font-weight: 600; padding: 0.5rem 1rem; border-radius: 4px; transition: color 0.3s ease; display: inline-block; }
+    .nav-links a:hover { color: var(--primary-color); }
+    .nav-links a.nav-cta { background: var(--primary-color); color: #fff; }
+    .nav-links a.nav-cta:hover { background: var(--accent-color); color: #fff; }
+    .dropdown { position: relative; display: inline-block; vertical-align: middle; }
+    .dropdown > a { display: inline-block; vertical-align: middle; }
+    .dropdown-content { display: none; position: absolute; background-color: var(--secondary-color); min-width: 240px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); z-index: 1000; border-radius: 8px; padding: 8px 0; top: 100%; left: 0; }
+    .dropdown:hover .dropdown-content { display: block; }
+    .dropdown-content a { color: var(--text-color); padding: 12px 16px; text-decoration: none; display: block; transition: background-color 0.3s ease; font-size: 0.9rem; }
+    .dropdown-content a:hover { background-color: var(--background-light); color: var(--primary-color); }
+    .hamburger { display: none; cursor: pointer; padding: 0.5rem; z-index: 1001; }
+    .hamburger-line { width: 25px; height: 3px; background-color: var(--text-color); margin: 5px 0; transition: all 0.3s ease; }
+    .mobile-menu { display: none; position: fixed; top: 0; right: -100%; width: 80%; height: 100vh; background-color: var(--secondary-color); box-shadow: -2px 0 5px rgba(0,0,0,0.1); padding: 2rem; transition: right 0.3s ease; z-index: 1000; }
+    .mobile-menu.active { display: block; right: 0; }
+    .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
+    .close-menu { cursor: pointer; font-size: 1.5rem; color: var(--text-color); }
+    .mobile-nav-links { display: flex; flex-direction: column; gap: 1.5rem; }
+    .mobile-nav-links a { color: var(--text-color); text-decoration: none; font-size: 1.2rem; font-weight: 600; padding: 0.5rem 0; }
+    .mobile-dropdown { position: relative; }
+    .mobile-dropdown-toggle { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .mobile-dropdown-content { display: none; padding-left: 1rem; margin-top: 0.5rem; background-color: rgba(0,0,0,0.05); }
+    .mobile-dropdown.active .mobile-dropdown-content { display: block; }
+    .mobile-dropdown-content a { font-size: 1rem; padding: 0.75rem 1rem; border-bottom: 1px solid rgba(0,0,0,0.1); display: block; color: var(--text-color); }
+    .overlay { display: none; position: fixed; inset: 0; background-color: rgba(0,0,0,0.5); z-index: 999; }
+    .overlay.active { display: block; }
+
+    /* ---------- Layout ---------- */
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 1.5rem; }
+    section { padding: 3.5rem 0; }
+    .section-title { font-size: 1.9rem; color: var(--text-color); margin-bottom: 1.25rem; }
+    .section-intro { color: var(--text-light); max-width: 720px; margin-bottom: 2rem; }
+    .ph { color: #9b2c2c; } /* placeholder copy, restyle/remove once filled in */
+
+    /* Buttons */
+    .btn { display: inline-block; padding: 0.85rem 1.6rem; border-radius: 8px; font-weight: 700; font-size: 1rem; transition: all .2s; cursor: pointer; border: 2px solid var(--primary-color); }
+    .btn-primary { background: var(--primary-color); color: #fff; }
+    .btn-primary:hover { background: var(--accent-color); border-color: var(--accent-color); }
+    .btn-outline { background: transparent; color: var(--primary-color); }
+    .btn-outline:hover { background: var(--primary-color); color: #fff; }
+
+    /* Hero */
+    .hero { background: linear-gradient(135deg, #6B46C1 0%, #805AD5 100%); color: #fff; padding: calc(var(--nav-h) + 4rem) 0 4rem; text-align: center; }
+    .hero h1 { font-size: 2.8rem; line-height: 1.15; margin-bottom: 1rem; }
+    .hero p { font-size: 1.2rem; opacity: .95; max-width: 720px; margin: 0 auto 2rem; }
+    .hero .btn-outline { color: #fff; border-color: #fff; }
+    .hero .btn-outline:hover { background: #fff; color: var(--primary-color); }
+    .hero .btn-primary { background: #fff; color: var(--primary-color); border-color: #fff; }
+    .hero .btn-primary:hover { background: var(--background-light); }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* Generic prose */
+    .prose p { margin-bottom: 1rem; }
+    .prose ul { margin: 0 0 1rem 1.4rem; }
+    .prose li { margin-bottom: .4rem; }
+
+    /* Cards grid */
+    .grid { display: grid; gap: 1.5rem; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .card { border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.04); }
+    .card h3 { color: var(--primary-color); margin-bottom: .5rem; font-size: 1.15rem; }
+    .card .muted { color: var(--text-light); font-size: .9rem; }
+
+    /* Milestone */
+    .milestone .tag { display: inline-block; font-size: .8rem; font-weight: 700; color: var(--primary-color); background: rgba(107,70,193,.1); padding: .2rem .6rem; border-radius: 999px; margin-bottom: .5rem; }
+
+    /* Budget table */
+    .budget-table { width: 100%; border-collapse: collapse; }
+    .budget-table th, .budget-table td { text-align: left; padding: .85rem 1rem; border-bottom: 1px solid var(--border-color); }
+    .budget-table th { background: var(--background-light); font-size: .85rem; text-transform: uppercase; letter-spacing: .03em; color: var(--text-light); }
+    .budget-table tfoot td { font-weight: 700; border-top: 2px solid var(--border-color); }
+
+    /* Support / donate */
+    .support { background: var(--background-light); }
+    .donate-box { border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; background: #fff; }
+    .donate-box h3 { margin-bottom: .75rem; color: var(--text-color); }
+    .addr { font-family: ui-monospace, Menlo, Consolas, monospace; background: var(--background-light); border: 1px solid var(--border-color); border-radius: 8px; padding: .75rem 1rem; word-break: break-all; font-size: .9rem; display: block; margin-top: .35rem; }
+    .addr-label { font-weight: 700; font-size: .9rem; }
+
+    /* Footer */
+    footer { background-color: var(--background-dark); color: #fff; padding: 4rem 2rem; margin-top: 2rem; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+    .footer-section h4 { color: #fff; margin-bottom: 1rem; font-size: 1.2rem; font-weight: 600; }
+    .footer-section ul { list-style: none; }
+    .footer-section ul li { margin-bottom: .5rem; }
+    .footer-section ul li a { color: #fff; text-decoration: none; opacity: .8; }
+    .footer-section ul li a:hover { opacity: 1; color: var(--accent-color); }
+    .social-links { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .social-link { color: #fff; opacity: .8; }
+    .social-link:hover { color: var(--accent-color); }
+    .footer-bottom { text-align: center; padding-top: 2rem; margin-top: 2rem; border-top: 1px solid rgba(255,255,255,.1); }
+    .footer-bottom p { color: rgba(255,255,255,.6); }
+
+    @media (max-width: 860px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      /* Collapse the desktop links but keep the Donate CTA visible in the bar */
+      .nav-links { display: flex; gap: 0.6rem; align-items: center; }
+      .nav-links > a:not(.nav-cta), .nav-links > .dropdown { display: none; }
+      .nav-links a.nav-cta { padding: 0.4rem 0.85rem; font-size: 0.9rem; }
+      .logo-separator, .wallet-text { display: none; }
+      .hamburger { display: block; }
+      .hero h1 { font-size: 2.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== NAV ===== -->
+  <nav class="nav-container">
+    <div class="nav-content">
+      <a href="../../index.html" class="logo">
+        <img src="../../images/Valet_logo.svg" alt="Valet Logo">
+        <span class="logo-text">VALET</span>
+        <span class="logo-separator">|</span>
+        <span class="wallet-text">WALLET</span>
+      </a>
+      <div class="nav-links">
+        <a href="../../index.html">Valet</a>
+        <a href="../features/features.html">Features</a>
+        <div class="dropdown">
+          <a href="#" onclick="return false;">Tutorial</a>
+          <div class="dropdown-content">
+            <a href="../tutorial/valet.html">Valet Wallet Tutorial</a>
+            <a href="../tutorial/hosted-channel.html">Hosted/Fiat Channels Stack Setup Tutorial</a>
+          </div>
+        </div>
+        <a href="grant.html">Grant</a>
+        <a href="../bnb/contact.html">Contact</a>
+        <a href="#support" class="nav-cta">Donate</a>
+      </div>
+      <div class="hamburger">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu">
+    <div class="mobile-menu-header">
+      <h3>Menu</h3>
+      <span class="close-menu">&times;</span>
+    </div>
+    <div class="mobile-nav-links">
+      <a href="../../index.html">Valet</a>
+      <a href="../features/features.html">Features</a>
+      <div class="mobile-dropdown">
+        <a href="#" class="mobile-dropdown-toggle">Tutorial ▼</a>
+        <div class="mobile-dropdown-content">
+          <a href="../tutorial/valet.html">Valet Wallet Tutorial</a>
+          <a href="../tutorial/hosted-channel.html">Hosted/Fiat Channels Stack Setup Tutorial</a>
+        </div>
+      </div>
+      <a href="grant.html">Grant</a>
+      <a href="../bnb/contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="overlay"></div>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="wrap">
+      <h1>Help Us Bring Self-Custodial Lightning to Everyone</h1>
+      <p>Valet is a free, open-source Bitcoin &amp; Lightning wallet built to work where others can't, on low-end phones, in low-bandwidth regions, with no custodian. We're seeking support to revive our Hosted/Fiat channels and keep Valet growing.</p>
+    </div>
+  </header>
+
+  <!-- ===== SUMMARY ===== -->
+  <section id="proposal">
+    <div class="wrap prose">
+      <h2 class="section-title">Project Summary</h2>
+      <p>Valet is a fully open-source (Apache-2.0), non-custodial Bitcoin and Lightning wallet that puts a private, lightweight Lightning node in everyone's pocket, no full node, no pre-funded channels, no KYC. Built on our own mobile-first <strong>Immortan</strong> library, it runs on Android 8+ in under 30&nbsp;MB and on minimal internet.</p>
+      <p>We're seeking grant support to continue building Valet, reviving our Hosted/Fiat channel technology, shipping new releases, and deepening adoption across the Global South. We'd be glad to discuss scope and timeline with any funder who wants to get involved.</p>
+      <div class="grid grid-2" style="margin-top:2rem;">
+        <div class="card">
+          <h3>📄 Full Grant Proposal</h3>
+          <p class="muted">The complete written proposal, problem, milestones, budget, outcomes, and team.</p>
+          <p style="margin-top:1rem; display:flex; gap:.6rem; flex-wrap:wrap;">
+            <a class="btn btn-primary" href="assets/Valet-Grant-Proposal.pdf" target="_blank" rel="noopener">Read online</a>
+            <a class="btn btn-outline" href="assets/Valet-Grant-Proposal.pdf" download>Download PDF</a>
+          </p>
+        </div>
+        <div class="card">
+          <h3>📊 Pitch Deck</h3>
+          <p class="muted">A visual overview of Valet, the problem, our traction, and the ask.</p>
+          <p style="margin-top:1rem; display:flex; gap:.6rem; flex-wrap:wrap;">
+            <a class="btn btn-primary" href="assets/Valet-Pitch-Deck.pdf" target="_blank" rel="noopener">View online</a>
+            <a class="btn btn-outline" href="assets/Valet-Pitch-Deck.pdf" download>Download PDF</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROBLEM ===== -->
+  <section style="background: var(--background-light);">
+    <div class="wrap prose">
+      <h2 class="section-title">The Problem</h2>
+      <p>Bitcoin adoption is booming, but everyday use as a medium of exchange still lags, held back by real barriers:</p>
+      <ul>
+        <li><strong>~1.7 billion adults are unbanked</strong>, largely cut off from traditional finance.</li>
+        <li>Bitcoin is the global alternative, but it's <strong>technical</strong>, and most wallets demand high-end devices, heavy bandwidth, or real skills.</li>
+        <li>Self-custodial Lightning is <strong>costly and confusing</strong> to set up for newcomers.</li>
+        <li>Bitcoin's <strong>price volatility</strong> scares merchants and pushes people toward centralized, censorable stablecoins.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== SOLUTION ===== -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">What We're Building</h2>
+      <p class="section-intro">Valet is designed for real people, not just power users, simple enough for a first-time user, light enough for a budget Android phone.</p>
+      <div class="grid grid-3">
+        <div class="card"><h3>Runs anywhere</h3><p class="muted">Android 8+, under 30&nbsp;MB, minimal bandwidth, built for low-resource devices and regions.</p></div>
+        <div class="card"><h3>Truly self-custodial</h3><p class="muted">Seed-backed; your keys, your coins, no custodian, no KYC.</p></div>
+        <div class="card"><h3>Full Lightning</h3><p class="muted">Fast, low-cost payments straight from your device.</p></div>
+        <div class="card"><h3>Privacy &amp; control</h3><p class="muted">Coin control, fee control, batching, private Electrum + Tor, watch-only/hardware support, local channel backups.</p></div>
+        <div class="card"><h3>Simple by design</h3><p class="muted">Clean UX with no jargon, you can even send and receive by email.</p></div>
+        <div class="card"><h3>Open source</h3><p class="muted">Apache-2.0 licensed, anyone can audit, fork, or rebuild it.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOSTED/FIAT CHANNELS ===== -->
+  <section style="background: var(--background-light);">
+    <div class="wrap prose">
+      <h2 class="section-title">The Breakthrough: Hosted / Fiat Channels</h2>
+      <p>Our standout innovation is <strong>zero-liquidity, anonymous Lightning channels</strong> you open just by scanning a Host's QR code. <strong>Fiat channels</strong> lock in a stable fiat value, a Bitcoin-backed alternative to centralized stablecoins, so merchants can accept Bitcoin without fearing volatility, while staying fully on Lightning. Anyone can run a Host, making it ideal for local Bitcoin communities.</p>
+      <p><em>This feature is currently paused due to infrastructure cost, reviving it is the heart of this grant.</em></p>
+    </div>
+  </section>
+
+  <!-- ===== TRACTION ===== -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">Traction</h2>
+      <p class="section-intro">Self-funded since 2022, live on F-Droid and Zapstore, and growing on the ground. <span class="ph">(Figures are current snapshots, update as they grow.)</span></p>
+      <div class="grid grid-2">
+        <div class="card"><h3>700+</h3><p class="muted">Hosted/Fiat channels opened (TVL ATH ~$1,100 to $1,200)</p></div>
+        <div class="card"><h3>100+</h3><p class="muted">All-time downloads &amp; active users</p></div>
+      </div>
+      <p style="margin-top:1.5rem;">On the ground with <strong>MonteLibero, Bitcoin Kitui, Bitcoin Boma, and Bitcoin Giuthurai</strong>, focused on the Global South.</p>
+    </div>
+  </section>
+
+  <!-- ===== ROADMAP / USE OF FUNDS ===== -->
+  <section style="background: var(--background-light);">
+    <div class="wrap prose">
+      <h2 class="section-title">Roadmap (Use of Funds)</h2>
+      <p>With this grant we will:</p>
+      <ul>
+        <li><strong>Revive Hosted/Fiat channels</strong> and run the infrastructure behind them.</li>
+        <li>Ship new <strong>Immortan</strong> and <strong>Valet</strong> releases.</li>
+        <li>Extend Hosted/Fiat plugins <strong>beyond Eclair</strong> to LND and Core-Lightning.</li>
+        <li>Research <strong>BOLT12</strong> and a cryptographic mitigation for the "Host exit-scam" risk.</li>
+        <li>Complete entity setup to <strong>return to Google Play</strong>.</li>
+        <li>Fund <strong>community education</strong> and localization across target regions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== BUDGET ===== -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">Budget</h2>
+      <p class="section-intro">A lean budget focused on people and infrastructure.</p>
+      <table class="budget-table">
+        <thead>
+          <tr><th>Item</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Core maintainers (2, part-time)</td><td>Ongoing Valet + Immortan development</td></tr>
+          <tr><td>Project / community lead (full-time)</td><td>Outreach, workshops, coordination</td></tr>
+          <tr><td>Travel</td><td>Up to 2 conferences in target regions</td></tr>
+          <tr><td>Infrastructure</td><td>CI, test nodes, Host infrastructure</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== TEAM ===== -->
+  <section style="background: var(--background-light);">
+    <div class="wrap">
+      <h2 class="section-title">Team</h2>
+      <p class="section-intro">Built by the Standard Sats team, the original authors of Immortan and the Hosted-Channel spec.</p>
+      <div class="grid grid-3">
+        <div class="card"><h3>Ilya Evdokimov</h3><p class="muted">Lead Maintainer</p><p class="muted">Engineer &amp; Eclair contributor · <a href="https://github.com/evd0kim" target="_blank" rel="noopener">github.com/evd0kim</a></p></div>
+        <div class="card"><h3>Anton Gutscha</h3><p class="muted">Lead Developer</p><p class="muted"><a href="https://github.com/NCrashed" target="_blank" rel="noopener">github.com/NCrashed</a></p></div>
+        <div class="card"><h3>Ugochukwu “David” Chidire</h3><p class="muted">Project &amp; Community Lead</p><p class="muted"><a href="https://github.com/0orion" target="_blank" rel="noopener">github.com/0orion</a></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SUPPORT / FUND US ===== -->
+  <section id="support" class="support">
+    <div class="wrap">
+      <h2 class="section-title">Support Valet</h2>
+      <p class="section-intro">Help us revive Hosted/Fiat channels and keep Valet free and open for everyone. Donate directly, or reach out about grants and partnerships.</p>
+      <div class="grid grid-2">
+        <div class="donate-box">
+          <h3>Donate Bitcoin</h3>
+          <p class="addr-label">On-chain</p>
+          <code class="addr ph">[Add your Bitcoin on-chain address]</code>
+          <p class="addr-label" style="margin-top:1rem;">Lightning</p>
+          <code class="addr ph">[Add your Lightning address / LNURL]</code>
+        </div>
+        <div class="donate-box">
+          <h3>Grants &amp; Partnerships</h3>
+          <p class="muted">Funder, grant program, or community partner? We'd love to talk.</p>
+          <p style="margin-top:.5rem;"><a href="mailto:david@standardsats.finance">david@standardsats.finance</a></p>
+          <p style="margin-top:1rem;"><a class="btn btn-primary" href="#contact">Get in Touch</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <div class="wrap prose">
+      <h2 class="section-title">Contact</h2>
+      <p>General enquiries: <a href="mailto:valet@pm.me">valet@pm.me</a><br>Grants &amp; partnerships: <a href="mailto:david@standardsats.finance">david@standardsats.finance</a></p>
+      <p>You can also reach us via the <a href="../bnb/contact.html">contact page</a>, on GitHub (<a href="https://github.com/standardsats/valet" target="_blank" rel="noopener">standardsats/valet</a>), or X (<a href="https://x.com/standard_sats" target="_blank" rel="noopener">@standard_sats</a>).</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Wallet</h4>
+        <ul>
+          <li><a href="https://f-droid.org/en/packages/finance.valet/" target="_blank">Mobile Apps</a></li>
+          <li><a href="https://github.com/standardsats/valet/releases/tag/4.4.4" target="_blank">APK File</a></li>
+          <li><a href="#">Telegram Bot</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Tutorial</h4>
+        <ul>
+          <li><a href="../tutorial/valet.html">Valet Wallet Tutorial</a></li>
+          <li><a href="../tutorial/hosted-channel.html">Hosted/Fiat Channels Stack Setup Tutorial</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Project</h4>
+        <ul>
+          <li><a href="grant.html">Grant Proposal</a></li>
+          <li><a href="../bnb/contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Connect with Us</h4>
+        <div class="social-links">
+          <a href="https://x.com/standard_sats" class="social-link" target="_blank">X(Twitter)</a>
+          <a href="https://www.youtube.com/@standardsats" class="social-link" target="_blank">YouTube</a>
+          <a href="https://stacker.news/standard_sats" class="social-link" target="_blank">StackerNews</a>
+          <a href="https://github.com/standardsats/valet" class="social-link" target="_blank">GitHub</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Valet.finance. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const overlay = document.querySelector('.overlay');
+    const closeMenu = document.querySelector('.close-menu');
+    const closeMobile = () => { mobileMenu.classList.remove('active'); overlay.classList.remove('active'); document.body.style.overflow = ''; };
+    hamburger.addEventListener('click', () => { mobileMenu.classList.add('active'); overlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
+    closeMenu.addEventListener('click', closeMobile);
+    overlay.addEventListener('click', closeMobile);
+    document.querySelectorAll('.mobile-dropdown-toggle').forEach(toggle => {
+      toggle.addEventListener('click', (e) => { e.preventDefault(); toggle.parentElement.classList.toggle('active'); });
+    });
+  </script>
+</body>
+</html>

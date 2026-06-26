@@ -104,6 +104,15 @@
             color: var(--primary-color);
         }
 
+        .nav-links a.nav-cta {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+        .nav-links a.nav-cta:hover {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+
         /* Mobile Menu Styles */
         .hamburger {
             display: none;
@@ -1190,7 +1199,22 @@
             }
 
             .nav-links {
+                display: flex !important;
+                gap: 0.6rem;
+                align-items: center;
+            }
+            .nav-links > a:not(.nav-cta),
+            .nav-links > .dropdown {
                 display: none !important;
+            }
+            .nav-links a.nav-cta {
+                display: inline-block !important;
+                padding: 0.4rem 0.85rem;
+                font-size: 0.9rem;
+            }
+            .logo-separator,
+            .wallet-text {
+                display: none;
             }
             .hamburger {
                 display: block !important;
@@ -1732,7 +1756,9 @@
                         <a href="top_nav/tutorial/hosted-channel.html">Hosted/Fiat Channels Stack Setup Tutorial</a>
                     </div>
                 </div>
+                <a href="top_nav/grant/grant.html">Grant</a>
                 <a href="top_nav/bnb/contact.html">Contact</a>
+                <a href="top_nav/grant/grant.html#support" class="nav-cta">Donate</a>
             </div>
             <div class="hamburger">
                 <div class="hamburger-line"></div>
@@ -1760,6 +1786,7 @@
                 </div>
             </div>
 
+                <a href="top_nav/grant/grant.html">Grant</a>
             <a href="top_nav/bnb/contact.html">Contact</a>
         </div>
     </div>
